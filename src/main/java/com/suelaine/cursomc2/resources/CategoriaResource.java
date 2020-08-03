@@ -3,6 +3,8 @@ package com.suelaine.cursomc2.resources;
 
 
 import java.util.ArrayList;
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.services.CategoriaService;
 
+//COMUNICAM OS DADOS COM AS APLICAÇÕES 
+
 @RestController
 @RequestMapping(value="/categorias")
+
+
 public class CategoriaResource {
+	
+	//@Autowired INSTANCIA AUTOMATICAMENTE
 	@Autowired
 	private CategoriaService service;
 	
@@ -29,7 +37,7 @@ public class CategoriaResource {
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		
+		// ResponseEntity ENCAPSULA VARTIAD INFORMAÇÕES PARA UM RSERVIÇO REST
 		Optional<Categoria> obj = Optional.ofNullable(service.find(id));
 //		Categoria cat1 = new Categoria(1,"Informática");
 //		Categoria cat2 = new Categoria(2,"Escritório");

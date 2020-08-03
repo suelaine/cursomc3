@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.suelaine.cursomc2.domain.Categoria;
 
+//ACESSO A DADOS
+
 //um objeto desse tipo é capaz de fazer operações de acesso a banco de dados, fazer consultas
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{

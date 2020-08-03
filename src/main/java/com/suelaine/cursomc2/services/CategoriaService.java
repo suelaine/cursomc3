@@ -6,7 +6,11 @@ import java.util.Optional;
 
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.repositories.CategoriaRepository;
+import com.suelaine.cursomc2.services.exceptions.ObjectNotFoundException;
 
+//REGRAS DE NEGÓCIO
+//RESPONSÁVEL POR OFERECER OPERAÇÕES E CONSULTAS PARA OS NOSSOS CONTROLADORES REST - OS RESOURCES 
+// NÃO TEM CONTATO COM TECNOLOGIAS 
 @Service
 public class CategoriaService {
 	
@@ -20,6 +24,9 @@ public class CategoriaService {
 	
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(()-> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: "+Categoria.class.getName()     
+				)
+				);
 	}
 }
