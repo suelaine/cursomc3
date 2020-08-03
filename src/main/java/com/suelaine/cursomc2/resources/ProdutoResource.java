@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.domain.Produto;
-import com.suelaine.cursomc2.dto.ProdutoDTO;
+
 import com.suelaine.cursomc2.resources.utils.URL;
 import com.suelaine.cursomc2.services.ProdutoService;
 
@@ -47,26 +47,26 @@ public class ProdutoResource {
 	@Autowired
 	private ProdutoService service;
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		// ResponseEntity ENCAPSULA VARTIAD INFORMAÇÕES PARA UM RSERVIÇO REST
-		Optional<Produto> obj = Optional.ofNullable(service.find(id));
-//		Categoria cat1 = new Categoria(1,"Informática");
-//		Categoria cat2 = new Categoria(2,"Escritório");
-//
-//		List<Categoria> lista = new ArrayList<>();
-//		lista.add(cat1);
-//		lista.add(cat2);
-		
-		
-		return ResponseEntity.ok().body(obj);
-	}
-	
-//	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-//	public ResponseEntity<Produto> find(@PathVariable Integer id) {
-//		Produto obj = service.find(id);
+//	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+//	public ResponseEntity<?> find(@PathVariable Integer id) {
+//		// ResponseEntity ENCAPSULA VARTIAD INFORMAÇÕES PARA UM RSERVIÇO REST
+//		Optional<Produto> obj = Optional.ofNullable(service.find(id));
+////		Categoria cat1 = new Categoria(1,"Informática");
+////		Categoria cat2 = new Categoria(2,"Escritório");
+////
+////		List<Categoria> lista = new ArrayList<>();
+////		lista.add(cat1);
+////		lista.add(cat2);
+//		
+//		
 //		return ResponseEntity.ok().body(obj);
 //	}
+//	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Produto> find(@PathVariable Integer id) {
+		Produto obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
 	
 	
 	
