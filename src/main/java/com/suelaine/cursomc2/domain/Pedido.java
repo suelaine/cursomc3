@@ -18,7 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable {
@@ -28,12 +30,14 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 //	
-//	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
+	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
 	private Date instante;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido") // necessário senão ele dá um erro de entidade ytransiente quanod vc vai salvar um pedido e um pagamento dele	
 	private Pagamento pagamento;
 //
+	@JsonManagedReference // aqui eu digo que o prdido pode serializar cliente - o pedido chama o endereço dentro dele, mas o oposto nao ocorre
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;

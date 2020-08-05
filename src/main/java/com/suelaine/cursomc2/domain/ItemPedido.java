@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-//	@JsonIgnore
+	@JsonIgnore //isso não serizliza
 	@EmbeddedId // é um id embutido em um tipo auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -37,7 +37,7 @@ public class ItemPedido implements Serializable {
 		return (preco - desconto) * quantidade;
 	}
 	
-//	@JsonIgnore
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
@@ -45,6 +45,7 @@ public class ItemPedido implements Serializable {
 	public void setPedido(Pedido pedido) {
 		id.setPedido(pedido);
 	}
+	
 	
 	public Produto getProduto() {
 		return id.getProduto();

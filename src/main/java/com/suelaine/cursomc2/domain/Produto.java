@@ -58,7 +58,7 @@ public class Produto  implements Serializable {
 		this.preco = preco;
 	}
 
-//	@JsonIgnore
+	@JsonIgnore // para evitar referencia ciclica - evitar serializar os pedidos a partir dos produtos, porque já vão ser serializados os produtos a partir dos pedidos 
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
 		for (ItemPedido x : itens) {
@@ -100,6 +100,8 @@ public class Produto  implements Serializable {
 		this.categorias = categorias;
 	}
 
+	@JsonIgnore
+	@OneToMany(mappedBy="id.produto")
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
