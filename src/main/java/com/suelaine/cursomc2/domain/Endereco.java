@@ -26,11 +26,12 @@ public class Endereco implements Serializable {
 	private String cep;
 	
 //	@JsonIgnore
+	@JsonBackReference // aqui eu digo que o endereço não pode serializar cliente - o cliente chama o endereço dentro dele, mas o oposto nao ocorre
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
-	@JsonBackReference
+	
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
