@@ -1,9 +1,11 @@
 package com.suelaine.cursomc2.services;
 
+import java.awt.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.repositories.CategoriaRepository;
@@ -51,6 +53,12 @@ public class CategoriaService {
 		catch(DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir categoria com produtos");
 		}
+		
+	}
+	
+	public java.util.List<Categoria> findAll() {
+		
+		return repo.findAll();
 		
 	}
 }
