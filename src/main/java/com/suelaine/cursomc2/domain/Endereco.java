@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,8 +24,8 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String cep;
 	
-//	@JsonIgnore
-	@JsonBackReference // aqui eu digo que o endereço não pode serializar cliente - o cliente chama o endereço dentro dele, mas o oposto nao ocorre
+	@JsonIgnore
+//	@JsonBackReference // aqui eu digo que o endereço não pode serializar cliente - o cliente chama o endereço dentro dele, mas o oposto nao ocorre
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;

@@ -18,9 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.suelaine.cursomc2.domain.Endereco;
 //import com.suelaine.cursomc2.domain.enums.Perfil;
 import com.suelaine.cursomc2.domain.enums.TipoCliente;
@@ -42,7 +40,7 @@ public class Cliente implements Serializable {
 //	@JsonIgnore
 	private String senha;
 	
-	@JsonManagedReference // tô dizendo aqui que o cliente pode serializar o endereço
+//	@JsonManagedReference // tô dizendo aqui que o cliente pode serializar o endereço
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 //	
@@ -54,8 +52,8 @@ public class Cliente implements Serializable {
 //	@CollectionTable(name="PERFIS")
 //	private Set<Integer> perfis = new HashSet<>();
 //	
-//	@JsonIgnore
-	@JsonBackReference // tô dizendo aqui que o os pedidos de um clientes não vão ser serializados
+	@JsonIgnore
+//	@JsonBackReference // tô dizendo aqui que o os pedidos de um clientes não vão ser serializados
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
