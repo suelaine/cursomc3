@@ -41,7 +41,7 @@ public class CategoriaResource {
 //	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Optional<Categoria>> find(@PathVariable Integer id) {
 		// ResponseEntity ENCAPSULA VARTIAD INFORMAÇÕES PARA UM RSERVIÇO REST
 		Optional<Categoria> obj = Optional.ofNullable(service.find(id));
 //		Categoria cat1 = new Categoria(1,"Informática");
@@ -61,6 +61,13 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id ){
+		obj.setId(id);
+		obj = service.update(obj);		
+		return ResponseEntity.noContent().build();		
 	}
 
 }
