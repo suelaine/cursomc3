@@ -1,11 +1,13 @@
 package com.suelaine.cursomc2.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.repositories.CategoriaRepository;
+import com.suelaine.cursomc2.services.exceptions.DataIntegrityException;
 import com.suelaine.cursomc2.services.exceptions.ObjectNotFoundException;
 
 //REGRAS DE NEGÓCIO
@@ -38,6 +40,17 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		this.find(obj.getId());
 		return repo.save(obj);
+		
+	}
+	
+	public void delete(Integer id) {
+		this.find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir categoria com produtos");
+		}
 		
 	}
 }
