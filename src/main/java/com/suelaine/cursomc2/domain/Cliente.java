@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
 	private String senha;
 	
 //	@JsonManagedReference // tô dizendo aqui que o cliente pode serializar o endereço
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) // aqui eu digo que ue apago um cliente e o endereõ é removido por cascata
 	private List<Endereco> enderecos = new ArrayList<>();
 //	
 	@ElementCollection // pro JPA criar no banco a tabela com a entidade fraca
