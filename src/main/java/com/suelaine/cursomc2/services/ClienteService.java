@@ -1,33 +1,20 @@
 package com.suelaine.cursomc2.services;
 
-import java.awt.image.BufferedImage;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.suelaine.cursomc2.domain.Categoria;
-import com.suelaine.cursomc2.domain.Cidade;
 import com.suelaine.cursomc2.domain.Cliente;
-import com.suelaine.cursomc2.domain.Endereco;
-import com.suelaine.cursomc2.domain.enums.Perfil;
-import com.suelaine.cursomc2.domain.enums.TipoCliente;
-//import com.suelaine.cursomc2.dto.ClienteDTO;
-//import com.suelaine.cursomc2.dto.ClienteNewDTO;
-import com.suelaine.cursomc2.repositories.CidadeRepository;
+import com.suelaine.cursomc2.domain.Cliente;
+import com.suelaine.cursomc2.dto.ClienteDTO;
 import com.suelaine.cursomc2.repositories.ClienteRepository;
-import com.suelaine.cursomc2.repositories.EnderecoRepository;
-//import com.suelaine.cursomc2.security.UserSS;
-import com.suelaine.cursomc2.services.exceptions.AuthorizationException;
 import com.suelaine.cursomc2.services.exceptions.DataIntegrityException;
 import com.suelaine.cursomc2.services.exceptions.ObjectNotFoundException;
 
@@ -67,38 +54,38 @@ public class ClienteService {
 				);
 	}
 
-//	public Cliente insert(Cliente obj) {
-//		obj.setId(null);
-//		obj = repo.save(obj);
-////		enderecoRepository.save(obj.getEnderecos());
-//		return obj;
-//	}
-//
-//	public Cliente update(Cliente obj) {
-//		Cliente newObj = find(obj.getId());
-//		updateData(newObj, obj);
-//		return repo.save(newObj);
-//	}
-//
-//	public void delete(Integer id) {
-//		find(id);
-//		try {
-////			repo.delete(id);
-//		} catch (DataIntegrityViolationException e) {
-//			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
-//		}
-//	}
-//
-//	public List<Cliente> findAll() {
-//		return repo.findAll();
-//	}
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		obj = repo.save(obj);
+//		enderecoRepository.save(obj.getEnderecos());
+		return obj;
+	}
+
+	public Cliente update(Cliente obj) {
+		Cliente newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir porque há ENTIDADES relacionadAs");
+		}
+	}
+
+	public List<Cliente> findAll() {
+		return repo.findAll();
+	}
 
 //	public Cliente findByEmail(String email) {
 //
-////		UserSS user = UserService.authenticated();
-////		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
-////			throw new AuthorizationException("Acesso negado");
-////		}
+//		UserSS user = UserService.authenticated();
+//		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+//			throw new AuthorizationException("Acesso negado");
+//		}
 //
 ////		Cliente obj = repo.findByEmail(email);
 ////		if (obj == null) {
@@ -106,18 +93,17 @@ public class ClienteService {
 ////					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
 ////		}
 ////		return obj;
-//	}
+//	}	
+	
+	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){		
+		PageRequest pageRequest = PageRequest.of(page,linesPerPage,Direction.valueOf(direction),orderBy);
+		return repo.findAll(pageRequest);		
+	}
 
-//	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-////		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-//		return null;
-////				repo.findAll(pageRequest);
-//	}
+	public Cliente fromDTO(ClienteDTO objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+	}
 
-//	public Cliente fromDTO(ClienteDTO objDto) {
-//		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null);
-//	}
-//
 //	public Cliente fromDTO(ClienteNewDTO objDto) {
 ////		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),
 ////				TipoCliente.toEnum(objDto.getTipo()), pe.encode(objDto.getSenha()));
@@ -136,10 +122,10 @@ public class ClienteService {
 ////		cli;
 //	}
 
-//	private void updateData(Cliente newObj, Cliente obj) {
-//		newObj.setNome(obj.getNome());
-//		newObj.setEmail(obj.getEmail());
-//	}
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+	}
 //
 //	public URI uploadProfilePicture(MultipartFile multipartFile) {
 
