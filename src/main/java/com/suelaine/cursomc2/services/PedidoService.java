@@ -55,6 +55,12 @@ public class PedidoService {
 				)
 				);
 	}
+	
+	public java.util.List<Pedido> findAll() {
+		
+		return repo.findAll();
+		
+	}
 //
 //	public Pedido insert(Pedido obj) {
 //		obj.setId(null);

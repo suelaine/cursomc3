@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.suelaine.cursomc2.domain.Categoria;
 import com.suelaine.cursomc2.domain.Pedido;
+import com.suelaine.cursomc2.dto.CategoriaDTO;
 import com.suelaine.cursomc2.services.CategoriaService;
 import com.suelaine.cursomc2.services.PedidoService;
 
@@ -36,6 +38,14 @@ public class PedidoResource {
 //	public String ok() {
 //		return "REST está funcionando!";
 //	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<Pedido>> findAll() {
+		List<Pedido> list = service.findAll();
+//		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());	
+		return ResponseEntity.ok().body(list);
+	}
+	
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
